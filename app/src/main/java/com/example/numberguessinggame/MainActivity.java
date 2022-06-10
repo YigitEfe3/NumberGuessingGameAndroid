@@ -230,108 +230,109 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     input.setText(null);
                 break;
             case R.id.guess:
+                if(input.length()==4){
+                    int num1, num2, num3, num4, numFull;
+                    numFull = Integer.valueOf(input.getText().toString());
+                    num1 = numFull/1000;
+                    num2 = (numFull - (num1*1000)) / 100;
+                    num3 = (numFull - (num1*1000) - (num2*100)) / 10;
+                    num4 = numFull - (num1*1000) - (num2*100) - (num3*10);
+                    compareNumbers(num1, num2, num3, num4);
 
-                int num1, num2, num3, num4, numFull;
-                numFull = Integer.valueOf(input.getText().toString());
-                num1 = numFull/1000;
-                num2 = (numFull - (num1*1000)) / 100;
-                num3 = (numFull - (num1*1000) - (num2*100)) / 10;
-                num4 = numFull - (num1*1000) - (num2*100) - (num3*10);
-                compareNumbers(num1, num2, num3, num4);
-
-                if(num1 == 0){
-                    //Toast.makeText(MainActivity.this,"First number can't be zero",Toast.LENGTH_LONG).show();
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setTitle("Wrong Input")
-                            .setMessage("First digit can't be zero")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    input.setText(null);
-                                }
-                            })
-                            .show();
-                }
-                else if(num1 == num2 || num1 == num3 || num1 == num4 || num2 == num3 || num2 == num4 || num3 == num4){
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setTitle("Wrong Input")
-                            .setMessage("You must enter four different numbers")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    input.setText(null);
-                                }
-                            })
-                            .show();
-                }
-                else{
-                    guesscounter++;
-                    if(pluscounter == 4){
+                    if(num1 == 0){
+                        //Toast.makeText(MainActivity.this,"First number can't be zero",Toast.LENGTH_LONG).show();
                         new AlertDialog.Builder(MainActivity.this)
-                                .setTitle("You WON!")
-                                .setMessage("Congratulations. Would you like to play again?")
+                                .setTitle("Wrong Input")
+                                .setMessage("First digit can't be zero")
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = getIntent();
-                                        finish();
-                                        startActivity(intent);
+                                        input.setText(null);
                                     }
                                 })
                                 .show();
                     }
-                    if(guesscounter == 1 || lastguess1.getText() == null){
-                        lastguess1.setText("" + num1 + num2 + num3 + num4);
-                        lastresult1.setText("+" + pluscounter + "/-" + minuscounter);
-                    }
-                    else if(guesscounter == 2 || lastguess2.getText() == null){
-                        lastguess2.setText("" + num1 + num2 + num3 + num4);
-                        lastresult2.setText("+" + pluscounter + "/-" + minuscounter);
-                    }
-                    else if(guesscounter == 3 || lastguess3.getText() == null){
-                        lastguess3.setText("" + num1 + num2 + num3 + num4);
-                        lastresult3.setText("+" + pluscounter + "/-" + minuscounter);
-                    }
-                    else if(guesscounter == 4 || lastguess4.getText() == null){
-                        lastguess4.setText("" + num1 + num2 + num3 + num4);
-                        lastresult4.setText("+" + pluscounter + "/-" + minuscounter);
-                    }
-                    else if(guesscounter == 5 || lastguess5.getText() == null){
-                        lastguess5.setText("" + num1 + num2 + num3 + num4);
-                        lastresult5.setText("+" + pluscounter + "/-" + minuscounter);
-                    }
-                    else if(guesscounter == 6 || lastguess6.getText() == null){
-                        lastguess6.setText("" + num1 + num2 + num3 + num4);
-                        lastresult6.setText("+" + pluscounter + "/-" + minuscounter);
-                    }
-                    else if(guesscounter == 7 || lastguess7.getText() == null){
-                        lastguess7.setText("" + num1 + num2 + num3 + num4);
-                        lastresult7.setText("+" + pluscounter + "/-" + minuscounter);
-                    }
-                    else if(guesscounter == 8 || lastguess8.getText() == null){
-                        lastguess8.setText("" + num1 + num2 + num3 + num4);
-                        lastresult8.setText("+" + pluscounter + "/-" + minuscounter);
-                    }
-                    else if(guesscounter == 9 || lastguess9.getText() == null){
-                        lastguess9.setText("" + num1 + num2 + num3 + num4);
-                        lastresult9.setText("+" + pluscounter + "/-" + minuscounter);
-                    }
-                    else if(guesscounter == 10){
-                        lastguess10.setText("" + num1 + num2 + num3 + num4);
-                        lastresult10.setText("+" + pluscounter + "/-" + minuscounter);
-
+                    else if(num1 == num2 || num1 == num3 || num1 == num4 || num2 == num3 || num2 == num4 || num3 == num4){
                         new AlertDialog.Builder(MainActivity.this)
-                                .setTitle("You LOST!")
-                                .setMessage("Would you like to try again?")
+                                .setTitle("Wrong Input")
+                                .setMessage("You must enter four different numbers")
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = getIntent();
-                                        finish();
-                                        startActivity(intent);
+                                        input.setText(null);
                                     }
                                 })
                                 .show();
                     }
-                    pluscounter = 0;
-                    minuscounter = 0;
-                    input.setText(null);
+                    else{
+                        guesscounter++;
+                        if(pluscounter == 4){
+                            new AlertDialog.Builder(MainActivity.this)
+                                    .setTitle("You WON!")
+                                    .setMessage("Congratulations. Would you like to play again?")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = getIntent();
+                                            finish();
+                                            startActivity(intent);
+                                        }
+                                    })
+                                    .show();
+                        }
+                        if(guesscounter == 1 || lastguess1.getText() == null){
+                            lastguess1.setText("" + num1 + num2 + num3 + num4);
+                            lastresult1.setText("+" + pluscounter + "/-" + minuscounter);
+                        }
+                        else if(guesscounter == 2 || lastguess2.getText() == null){
+                            lastguess2.setText("" + num1 + num2 + num3 + num4);
+                            lastresult2.setText("+" + pluscounter + "/-" + minuscounter);
+                        }
+                        else if(guesscounter == 3 || lastguess3.getText() == null){
+                            lastguess3.setText("" + num1 + num2 + num3 + num4);
+                            lastresult3.setText("+" + pluscounter + "/-" + minuscounter);
+                        }
+                        else if(guesscounter == 4 || lastguess4.getText() == null){
+                            lastguess4.setText("" + num1 + num2 + num3 + num4);
+                            lastresult4.setText("+" + pluscounter + "/-" + minuscounter);
+                        }
+                        else if(guesscounter == 5 || lastguess5.getText() == null){
+                            lastguess5.setText("" + num1 + num2 + num3 + num4);
+                            lastresult5.setText("+" + pluscounter + "/-" + minuscounter);
+                        }
+                        else if(guesscounter == 6 || lastguess6.getText() == null){
+                            lastguess6.setText("" + num1 + num2 + num3 + num4);
+                            lastresult6.setText("+" + pluscounter + "/-" + minuscounter);
+                        }
+                        else if(guesscounter == 7 || lastguess7.getText() == null){
+                            lastguess7.setText("" + num1 + num2 + num3 + num4);
+                            lastresult7.setText("+" + pluscounter + "/-" + minuscounter);
+                        }
+                        else if(guesscounter == 8 || lastguess8.getText() == null){
+                            lastguess8.setText("" + num1 + num2 + num3 + num4);
+                            lastresult8.setText("+" + pluscounter + "/-" + minuscounter);
+                        }
+                        else if(guesscounter == 9 || lastguess9.getText() == null){
+                            lastguess9.setText("" + num1 + num2 + num3 + num4);
+                            lastresult9.setText("+" + pluscounter + "/-" + minuscounter);
+                        }
+                        else if(guesscounter == 10){
+                            lastguess10.setText("" + num1 + num2 + num3 + num4);
+                            lastresult10.setText("+" + pluscounter + "/-" + minuscounter);
+
+                            new AlertDialog.Builder(MainActivity.this)
+                                    .setTitle("You LOST!")
+                                    .setMessage("The number was: " + mainNumber + ". Would you like to try again?")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = getIntent();
+                                            finish();
+                                            startActivity(intent);
+                                        }
+                                    })
+                                    .show();
+                        }
+                        pluscounter = 0;
+                        minuscounter = 0;
+                        input.setText(null);
+                    }
                 }
                 break;
             case R.id.start:
